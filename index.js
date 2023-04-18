@@ -1,17 +1,31 @@
 // TODO: Include packages needed for this application
 var inquirer = require('inquirer');
 // TODO: Create an array of questions for user input
-const questions = [
-    "What motivated you to create this project?",
-    "What problem does this project solve?",
-    "Did you learn anything from the project experience?",
-    "Name some features that make this project unique.",
-    "Are there any steps required to install/implement the project?",
-    "Please provide instructions for using your application."
-];
+const readme = require('./utils/readme');
 
 inquirer
 .prompt([
+    {
+        type: 'input',
+        message: 'What is the title of the project?',
+        name: 'title',
+    },
+    {
+        type: 'input',
+        message: 'What is your github username?',
+        name: 'github',
+    },
+    {
+        type: 'input',
+        message: 'What is your email address?',
+        name: 'email',
+    },
+    {
+        type: 'list',
+        message: 'Which license is your project using?',
+        name: 'license',
+        choices: ['MIT', 'GNU GPLv3', 'Apache', 'Mozilla'],
+    },
     {
       type: 'input',
       message: 'What motivated you to create this project?',
@@ -44,7 +58,8 @@ inquirer
     },
   ])
     .then((answers => {
-        console.log(answers)
+        const README = readme.generateReadme(answers);
+        console.log(README);
     }));
 
 // TODO: Create a function to write README file
